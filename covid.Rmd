@@ -2,7 +2,7 @@
 title: "Cumulative deaths from COVID-19"
 author: "Mine Çetinkaya-Rundel"
 output: html_document
----
+                 ---
 
 ## Introduction
 
@@ -26,9 +26,9 @@ We will make use of the **DT** package for interactive display of tabular output
 
 ```{r load-packages, warning=FALSE, message=FALSE}
 # Need to download "coronavirus" package from GitHub
-if (!require(remotes)) {
-  install.packages("remotes")
-}
+# if (!require(remotes)) {
+#  install.packages("remotes")
+# }
 
 remotes::install_github("RamiKrispin/coronavirus")
 
@@ -157,5 +157,12 @@ coronavirus %>%
   select(country) %>%
   arrange(country) %>%
   distinct() %>%
-  datatable()
+  # The following code has been added by JooYoung to conditionally utilize different table functions per output type
+  {
+    if (knitr::is_html_output()) {
+      datatable(.)
+    } else {
+      knitr::kable(.)
+    }
+  }
 ```
