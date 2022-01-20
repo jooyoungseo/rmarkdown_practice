@@ -7,7 +7,7 @@ output: html_document
 ## Introduction
 
 Countries around the world are responding to an outbreak of respiratory illness caused by a novel coronavirus, COVID-19.
-The outbreak first started in Wuhan, China, but cases have been identified in a growing number of other locations internationally, including the United States.
+Cases have been identified in a growing number of other locations internationally, including the United States.
 In this report we explore how the trajectory of the cumulative deaths in a number of countries.
 
 The data come from the **coronavirus** package, which pulls data from the Johns Hopkins University Center for Systems Science and Engineering (JHU CCSE) Coronavirus repository.
