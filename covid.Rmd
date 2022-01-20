@@ -25,7 +25,14 @@ For our analysis, in addition to the coronavirus package, we will use the follow
 We will make use of the **DT** package for interactive display of tabular output in the Appendix.
 
 ```{r load-packages, warning=FALSE, message=FALSE}
-library(coronavirus) # devtools::install_github("RamiKrispin/coronavirus")
+# Need to download "coronavirus" package from GitHub
+if (!require(remotes)) {
+  install.packages("remotes")
+}
+
+remotes::install_github("RamiKrispin/coronavirus")
+
+library(coronavirus)
 library(tidyverse)
 library(lubridate)
 library(glue)
@@ -93,8 +100,8 @@ country_data <- coronavirus %>%
 We also need to take a note of the "as of date" for the data so that we can properly label our visualisation.
 
 ```{r record-as-of-date}
-as_of_date <- country_data %>% 
-  summarise(max(date)) %>% 
+as_of_date <- country_data %>%
+  summarise(max(date)) %>%
   pull()
 
 as_of_date_formatted <- glue("{wday(as_of_date, label = TRUE)}, {month(as_of_date, label = TRUE)} {day(as_of_date)}, {year(as_of_date)}")
@@ -108,17 +115,21 @@ The following visualisation shows the number of cumulative cases vs. days elapse
 The time span plotted for each country varies since some countries started seeing (and reporting) deaths from COVID-19 much later than others.
 
 ```{r visualise, warning=FALSE}
-ggplot(data = country_data,
-       mapping = aes(x = days_elapsed, 
-                     y = cumulative_cases, 
-                     color = country, 
-                     label = end_label)) +
+ggplot(
+  data = country_data,
+  mapping = aes(
+    x = days_elapsed,
+    y = cumulative_cases,
+    color = country,
+    label = end_label
+  )
+) +
   # represent cumulative cases with lines
   geom_line(size = 0.7, alpha = 0.8) +
   # add points to line endings
   geom_point(data = country_data %>% filter(end_date)) +
   # add country labels, nudged above the lines
-  geom_label_repel(nudge_y = 1, direction = "y", hjust = 1) + 
+  geom_label_repel(nudge_y = 1, direction = "y", hjust = 1) +
   # turn off legend
   guides(color = FALSE) +
   # use pretty colors
