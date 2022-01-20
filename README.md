@@ -5,7 +5,7 @@ An example R Markdown repository for IS 407.
 ## How to Clone in Terminal?
 
 ``` bash
-git clone https://github.com/jooyoungseo/rmarkdown_practice
+git clone https://github.com/uiuc-ischool-20221-jseo1005-1/rmarkdown_practice.git
 ```
 
 ## How to Compile?
